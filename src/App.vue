@@ -3,7 +3,7 @@
     <Toolbar></Toolbar>
     <v-content>
       <section v-if="requestError">
-        <p>We're sorry, we're not able to retrieve this information at the moment. Please try again later.</p>
+        <p class="mt-5" style="text-align:center;">We're sorry, we're not able to retrieve this information at the moment. Please try again later.</p>
       </section>
       <section v-else>
         <div v-if="loading">Loading...</div>
@@ -15,63 +15,27 @@
           </TopLevelInfo>
           <v-container class="main-content">
             <v-layout row wrap align-start>
-              <v-flex class="mb-2" xs6 d-flex style="flex-wrap:wrap;">
-                <div class="title">Highlights</div>
-                <PropertyHighlight
-                  label="Year built"
-                  icon="far fa-calendar"
-                  :propertyData="propertyData.result.property.year_built">
-                </PropertyHighlight>
-                <PropertyHighlight
-                  label="Lot size"
-                  icon="far fa-square"
-                  :propertyData="propertyData.result.property.site_area_acres"
-                  suffix="acres">
-                </PropertyHighlight>
-                <PropertyHighlight
-                  label="Heating"
-                  icon="fas fa-thermometer-three-quarters"
-                  :propertyData="propertyData.result.property.heating_fuel_type">
-                </PropertyHighlight>
-                <PropertyHighlight
-                  label="Cooling"
-                  icon="far fa-snowflake"
-                  :propertyData="propertyData.result.property.air_conditioning">
-                </PropertyHighlight>
-                <PropertyHighlight
-                  label="Parking"
-                  icon="fas fa-parking"
-                  :propertyData="propertyData.result.property.garage_type_parking">
-                </PropertyHighlight>
-                <PropertyHighlight
-                  label="Water"
-                  icon="fas fa-tint"
-                  :propertyData="propertyData.result.property.water">
-                </PropertyHighlight>
-              </v-flex>
+              <Features :propertyData="propertyData"></Features>
               <v-flex xs6>
-                <iframe
-                  width="500"
-                  height="300"
-                  frameborder="0" style="border:0"
-                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCPkKbXXUI2s6w--z_pQ7yYNoMXcZmw_9I&q=188-Sugar-Rd-Bolton-MA-01740" allowfullscreen>
-                </iframe>
+                <GoogleMap :address="addressData.slug"></GoogleMap>
               </v-flex>
             </v-layout>
           </v-container>
         </v-layout>
       </section>
     </v-content>
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
   import axios from 'axios'
   import Images from './components/Images'
+  import Footer from './components/Footer'
   import Toolbar from './components/Toolbar'
+  import Features from './components/Features'
   import GoogleMap from './components/GoogleMap'
   import TopLevelInfo from './components/TopLevelInfo'
-  import PropertyHighlight from './components/PropertyHighlight'
 
   export default {
     data() {
@@ -119,16 +83,12 @@
       }
     },
     components: {
+      Features,
+      Footer,
+      GoogleMap,
       Images,
       Toolbar,
-      TopLevelInfo,
-      PropertyHighlight
+      TopLevelInfo
     }
   }
 </script>
-
-<style>
-  .main-content .title {
-    width: 100%;
-  }
-</style>
