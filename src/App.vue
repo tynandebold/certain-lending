@@ -7,7 +7,7 @@
       </section>
       <section v-else>
         <div v-if="loading">Loading...</div>
-        <v-layout row wrap v-if="!loading">
+        <v-layout row wrap column v-if="!loading">
           <Images :images="images"></Images>
           <TopLevelInfo
             :addressData="addressData"

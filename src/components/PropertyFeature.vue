@@ -2,7 +2,7 @@
   <v-layout wrap class="trait mt-4">
     <v-icon v-if="icon" large style="width: 35px;">{{icon}}</v-icon>
     <v-layout wrap ml-2>
-      <div class="trait--label">{{label}}</div>
+      <div class="trait--label grey--text darken-1">{{label}}</div>
       <div class="trait--data">{{propData}} {{suffix}}</div>
     </v-layout>
   </v-layout>
@@ -41,6 +41,7 @@
   }
 
   .trait--label {
+    letter-spacing: 0.5px;
     text-transform: uppercase;
     width: 100%;
   }
