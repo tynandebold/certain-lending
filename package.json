@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "highcharts": "^6.1.0",
+    "highcharts-vue": "^1.0.3",
+    "install": "^0.11.0",
+    "lodash.range": "^3.2.0",
+    "npm": "^6.1.0",
     "prettier": "^1.12.1",
     "vue": "^2.5.3",
     "vuetify": "^1.0.0"

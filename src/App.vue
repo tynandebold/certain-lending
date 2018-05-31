@@ -18,13 +18,15 @@
               <Features :propertyData="propertyData"></Features>
               <v-flex xs6>
                 <GoogleMap :address="addressData.slug"></GoogleMap>
+                <v-divider class="my-5 mb-5"></v-divider>
+                <Dataviz></Dataviz>
               </v-flex>
             </v-layout>
           </v-container>
         </v-layout>
       </section>
     </v-content>
-    <Footer></Footer>
+    <Footer class="mt-5"></Footer>
   </v-app>
 </template>
 
@@ -33,6 +35,7 @@
   import Images from './components/Images'
   import Footer from './components/Footer'
   import Toolbar from './components/Toolbar'
+  import Dataviz from './components/Dataviz'
   import Features from './components/Features'
   import GoogleMap from './components/GoogleMap'
   import TopLevelInfo from './components/TopLevelInfo'
@@ -83,6 +86,7 @@
       }
     },
     components: {
+      Dataviz,
       Features,
       Footer,
       GoogleMap,
