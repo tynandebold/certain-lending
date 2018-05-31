@@ -73,7 +73,7 @@
             username: 'EZWE2U4RSITP71QHNYIL',
             password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
           },
-          baseURL: 'https://api.housecanary.com/v2',
+          baseURL: 'https://cors-anywhere.herokuapp.com/https://api.housecanary.com/v2',
           // baseURL: 'http://localhost:8080/data/propertyDetails.json',
           method: 'get',
           params: {
