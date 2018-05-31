@@ -26,17 +26,18 @@
     },
     created() {
       axios({
-        // auth: {
-        //   username: 'EZWE2U4RSITP71QHNYIL',
-        //   password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
-        // },
-        baseURL: 'http://localhost:8080/data/propertyValue.json',
+        auth: {
+          username: 'EZWE2U4RSITP71QHNYIL',
+          password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
+        },
+        baseURL: 'https://api.housecanary.com/v2',
+        // baseURL: 'http://localhost:8080/data/propertyValue.json',
         method: 'get',
-        // params: {
-        //   address: '188 sugar road',
-        //   zipcode: '01740'
-        // }
-        // url: '/property/value_by_quality?'
+        params: {
+          address: '188 sugar road',
+          zipcode: '01740'
+        },
+        url: '/property/value_by_quality?'
       })
         .then(response => {
           this.valueData = response.data['0']["property/value_by_quality"];
