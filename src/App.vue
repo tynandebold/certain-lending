@@ -3,10 +3,19 @@
     <Toolbar></Toolbar>
     <v-content>
       <section v-if="requestError">
-        <p class="mt-5" style="text-align:center;">We're sorry, we're not able to retrieve this information at the moment. Please try again later.</p>
+        <p
+          class="mt-5"
+          style="text-align:center;">
+          We're sorry, we're not able to retrieve this information at the moment. Please try again later.
+        </p>
       </section>
       <section v-else>
-        <div v-if="loading">Loading...</div>
+        <div
+          v-if="loading"
+          class="mt-5"
+          style="text-align:center;">
+          Loading...
+        </div>
         <v-layout row wrap column v-if="!loading">
           <Images :images="images"></Images>
           <TopLevelInfo
@@ -16,7 +25,7 @@
           <v-container class="main-content">
             <v-layout row wrap align-start>
               <Features :propertyData="propertyData"></Features>
-              <v-flex xs6>
+              <v-flex xs12 md6>
                 <GoogleMap :address="addressData.slug"></GoogleMap>
                 <v-divider class="my-5 mb-5"></v-divider>
                 <Dataviz></Dataviz>
@@ -52,8 +61,7 @@
         ],
         loading: true,
         propertyData: null,
-        requestError: false,
-        sidebar: false
+        requestError: false
       }
     },
     mounted() {

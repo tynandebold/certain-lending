@@ -1,6 +1,6 @@
 <template>
-  <v-layout column flex xs6>
-    <v-flex xs6 d-flex style="flex-wrap:wrap;">
+  <v-layout column flex xs12 md6>
+    <v-flex xs12 md6 d-flex style="flex-wrap:wrap;">
       <div class="title">Key details</div>
       <PropertyFeature
         label="Year built"
@@ -34,7 +34,7 @@
         :data="data.result.property.garage_type_parking">
       </PropertyFeature>
     </v-flex>
-    <v-flex class="feature-types-wrapper" xs6 d-flex style="flex-wrap:wrap;">
+    <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
       <v-flex d-flex align-center justify-start style="width: 100%;">
         <v-icon medium style="width: 35px;">fas fa-home</v-icon>
@@ -61,7 +61,7 @@
         :data="data.result.property.roof_type">
       </PropertyFeature>
     </v-flex>
-    <v-flex class="feature-types-wrapper" xs6 d-flex style="flex-wrap:wrap;">
+    <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
       <v-flex d-flex align-center justify-start style="width: 100%;">
         <v-icon medium style="width: 35px;">fas fa-bath</v-icon>
@@ -92,7 +92,7 @@
         :data="data.result.property.attic">
       </PropertyFeature>
     </v-flex>
-    <v-flex class="feature-types-wrapper" xs6 d-flex style="flex-wrap:wrap;">
+    <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
       <v-flex d-flex align-center justify-start style="width: 100%;">
         <v-icon medium style="width: 35px;">fas fa-wrench</v-icon>

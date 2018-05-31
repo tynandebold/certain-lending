@@ -1,7 +1,8 @@
 <template>
   <v-layout d-flex column>
     <div class="title mb-2">Standard deviation around estimated property value</div>
-    <p class="viz-subtext">You could buy this house at this <span @click="showPurchasePrice">purchasing price</span>. But the <span @click="showAsIs">as-is value</span> is actually lower than that. Assuming you take on a renovation budget of about <strong>$30,000</strong>, you could be looking at quite a nice <span @click="showAfterRenovation">after-renovation value</span>.</p>
+    <p class="viz-subtext mb-1">The poor condition of this house would put your <span @click="showPurchasePrice">purchasing price</span> well below the mean. The <span class="inactive" @click="showAsIs">as-is value</span>, the price the property was assessed at in 2018, is actually lower than that. Assuming you take on a renovation budget of about <strong>$45,000</strong>, you could be looking at quite a nice <span class="inactive" @click="showAfterRenovation">after-renovation value</span>.</p>
+    <p class="caption"><i>Hint: select the highlighted words.</i></p>
     <highcharts :options="chartOptions"></highcharts>
   </v-layout>
 </template>
@@ -62,7 +63,7 @@
             },
             plotLines: [{
               color: '#ec9e92',
-              value: 516800,
+              value: 473463,
               width: 0,
               label: {
                 align: 'right',
@@ -129,15 +130,19 @@
       }
     },
     methods: {
-      showPurchasePrice() {        
+      showPurchasePrice(e) {        
         this.chartOptions.xAxis.plotLines[0].width = 2;
         this.chartOptions.xAxis.plotLines[0].label.text = 'Purchase price';
+        e.target.nextElementSibling.classList.remove('inactive');
       },
-      showAsIs() {
+      showAsIs(e) {
         seriesData.unshift({x: 436200, y: 0 });
         this.chartOptions.series[0].data = seriesData;
         this.chartOptions.xAxis.plotLines[1].width = 2;
         this.chartOptions.xAxis.plotLines[1].label.text = 'Assessed value';
+        console.log(e.target.nextElementSibling);
+        
+        e.target.nextElementSibling.nextElementSibling.classList.remove('inactive');
       },
       showAfterRenovation() {
         this.chartOptions.xAxis.plotLines[2].width = 2;
@@ -153,9 +158,16 @@
     border-radius: 2px;;
     display: inline;
     padding: 2px 4px;
+    transition: background-color ease 0.2s;
   }
 
   .viz-subtext span:hover {
     cursor: pointer;
+  }
+
+  .viz-subtext span.inactive {
+    background-color: transparent;
+    padding: 0;
+    pointer-events: none;
   }
 </style>

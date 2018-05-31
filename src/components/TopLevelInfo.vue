@@ -46,12 +46,4 @@
   .main-info .headline {
     font-family: serif;
   }
-
-  .main-info .body-1 {
-    /* font-family: serif; */
-  }
-
-  .main-info body-1 {
-    /* font-family: serif; */
-  }
 </style>
