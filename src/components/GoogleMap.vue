@@ -8,7 +8,7 @@
   </iframe>
 </template>
 
-<script>
+<script>  
   export default {
     props: [
       'address'

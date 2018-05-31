@@ -26,9 +26,8 @@
             <v-layout row wrap align-start>
               <Features :propertyData="propertyData"></Features>
               <v-flex xs12 md6>
-                <GoogleMap :address="addressData.slug"></GoogleMap>
-                <v-divider class="my-5 mb-5"></v-divider>
-                <Dataviz></Dataviz>
+                <GoogleMap :address="addressData.slug" class="mb-5"></GoogleMap>
+                <Dataviz :assessedAmt="assessedAmt"></Dataviz>
               </v-flex>
             </v-layout>
           </v-container>
@@ -53,44 +52,46 @@
     data() {
       return {
         addressData: null,
-        appTitle: 'Property Information',
-        images: [
-          'https://thumbs.trulia-cdn.com/pictures/thumbs_6/zillowstatic/ISq51mq507ta0v1000000000.jpg',
-          'https://thumbs.trulia-cdn.com/pictures/thumbs_6/zillowstatic/IS23btwg4exobv1000000000.jpg',
-          'https://thumbs.trulia-cdn.com/pictures/thumbs_6/zillowstatic/ISucpgtny4ngcv1000000000.jpg'
+        images: ['https://goo.gl/NN9qVL',
+          'https://goo.gl/PAJjYb',
+          'https://goo.gl/m9gquf',
         ],
         loading: true,
+        assessedAmt: null,
         propertyData: null,
-        requestError: false
+        requestError: false,
+        valueData: null
       }
     },
     mounted() {
-      this.fetchData()
+      this.fetchData()  
     },
     methods: {
       fetchData() {
         axios({
-          auth: {
-            username: 'EZWE2U4RSITP71QHNYIL',
-            password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
-          },
-          baseURL: 'https://api.housecanary.com/v2',
+          // auth: {
+          //   username: 'EZWE2U4RSITP71QHNYIL',
+          //   password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
+          // },
+          // baseURL: 'https://api.housecanary.com/v2',
+          baseURL: 'http://localhost:8080/data/propertyDetails.json',
           method: 'get',
-          params: {
-            address: '188 sugar road',
-            zipcode: '01740'
-          },
-          url: '/property/details?'
+          // params: {
+          //   address: '188 sugar road',
+          //   zipcode: '01740'
+          // },
+          // url: '/property/details?'
         })
           .then(response => {
-            this.propertyData = response.data['0']["property/details"]
-            this.addressData = response.data['0'].address_info
+            this.propertyData = response.data['0']["property/details"];
+            this.addressData = response.data['0'].address_info;
+            this.assessedAmt = this.propertyData.result.assessment.total_assessed_value;
           })
           .catch(error => {
             console.log(error);
-            this.requestError = true
+            this.requestError = true;
           })
-          .finally(() => this.loading = false)
+          .finally(() => this.loading = false);
       }
     },
     components: {

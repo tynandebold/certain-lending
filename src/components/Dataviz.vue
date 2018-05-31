@@ -3,131 +3,163 @@
     <div class="title mb-2">Standard deviation around estimated property value</div>
     <p class="viz-subtext mb-1">The poor condition of this house would put your <span @click="showPurchasePrice">purchasing price</span> well below the mean. The <span class="inactive" @click="showAsIs">as-is value</span>, the price the property was assessed at in 2018, is actually lower than that. Assuming you take on a renovation budget of about <strong>$45,000</strong>, you could be looking at quite a nice <span class="inactive" @click="showAfterRenovation">after-renovation value</span>.</p>
     <p class="caption"><i>Hint: select the highlighted words.</i></p>
-    <highcharts :options="chartOptions"></highcharts>
+    <highcharts :options="chartOptions" v-if="!loading"></highcharts>
   </v-layout>
 </template>
 
 <script>
-  import Highcharts from 'highcharts';
-  import _range from 'lodash.range';
-
-  const lowerBound = 505903, upperBound = 578553;
-  const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2)) * 100000;
-  const getStdDeviation = (lowerBound, upperBound) => (upperBound - lowerBound) / 4;
-  
-  const generatePoints = (lowerBound, upperBound) => {
-    let stdDev = getStdDeviation(lowerBound, upperBound); 
-    let min = lowerBound - 2 * stdDev;
-    let max = upperBound + 2 * stdDev;
-    let unit = (max - min) / 100;
-    return _range(min, max, unit);
-  }
-
-  const mean = (upperBound + lowerBound) / 2;
-  const stdDev = getStdDeviation(lowerBound, upperBound);
-  const points = generatePoints(lowerBound, upperBound);
-  let seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));
+  import axios from 'axios'
+  import _range from 'lodash.range'
+  import Highcharts from 'highcharts'
 
   export default {
-    data() {      
+    props: [
+      'assessedAmt'
+    ],
+    data() {
       return {
-        chartOptions: {
-          chart: {
-            backgroundColor: 'transparent',
-            height: 300,
-            style: {
-              fontFamily: 'Roboto'
-            },
-            spacing: [0,0,0,0],
-            type: 'area',
-          },
-          credits: {
-            enabled: false
-          },
-          title: {
-            text: ''
-          },
-          yAxis: {
-            labels: {
-              enabled: false,  	
-            },
-            gridLineWidth: 0,
-            title: ''
-          },
-          xAxis: {
-            labels: {
+        chartOptions: {},
+        loading: true,
+        seriesData: null,
+        valueData: null,
+      }
+    },
+    created() {
+      axios({
+        // auth: {
+        //   username: 'EZWE2U4RSITP71QHNYIL',
+        //   password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
+        // },
+        baseURL: 'http://localhost:8080/data/propertyValue.json',
+        method: 'get',
+        // params: {
+        //   address: '188 sugar road',
+        //   zipcode: '01740'
+        // }
+        // url: '/property/value_by_quality?'
+      })
+        .then(response => {
+          this.valueData = response.data['0']["property/value_by_quality"];
+
+          const lowerPrice = this.valueData.result.value.price_lwr;
+          const upperPrice = this.valueData.result.value.price_upr;
+          const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2)) * 100000;
+          const getStdDeviation = (lowerPrice, upperPrice) => (upperPrice - lowerPrice) / 4;
+          
+          const generatePoints = (lowerPrice, upperPrice) => {
+            let stdDev = getStdDeviation(lowerPrice, upperPrice); 
+            let min = lowerPrice - 2 * stdDev;
+            let max = upperPrice + 2 * stdDev;
+            let unit = (max - min) / 100;
+            return _range(min, max, unit);
+          }
+
+          const mean = (upperPrice + lowerPrice) / 2;
+          const stdDev = getStdDeviation(lowerPrice, upperPrice);
+          const points = generatePoints(lowerPrice, upperPrice);
+          this.seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));          
+
+          this.chartOptions = {
+            chart: {
+              backgroundColor: 'transparent',
+              height: 300,
               style: {
-                fontSize: 13
+                fontFamily: 'Roboto'
               },
-              y: 23
+              spacing: [0,0,0,0],
+              type: 'area',
             },
-            plotLines: [{
-              color: '#ec9e92',
-              value: 473463,
-              width: 0,
-              label: {
-                align: 'right',
-                text: '',
-                x: 5,
-                y: 80
-              }
+            credits: {
+              enabled: false
             },
-            {
-              color: '#ec9e92',
-              value: 436200,
-              width: 0,
-              label: {
-                align: 'right',
-                text: '',
-                x: 5,
-                y: 85
-              }
-            },
-            {
-              color: '#ec9e92',
-              value: 571287,
-              width: 0,
-              label: {
-                align: 'right',
-                text: '',
-                x: 5,
-                y: 117
-              }
-            }],
             title: {
-              style: {
-                fontSize: 14
-              },
               text: ''
-            }
-          },
-          tooltip: {
-            enabled: false,
-          },
-          legend: {
-            enabled: false,
-          },
-          series: [{
-            data: seriesData,
-          }],
-          plotOptions: {
-            area: {
-              enableMouseTracking: false,
-              color: '#23947a',
-              fillColor: 'rgba(35, 148, 122, .35)',
-              zoneAxis: 'x',
-              zones: [{
-                fillColor: '#fafafa',
-                value: lowerBound,
-              },{
-                value: upperBound,
-              },{
-                fillColor: '#fafafa',
-              }]
+            },
+            yAxis: {
+              labels: {
+                enabled: false,  	
+              },
+              gridLineWidth: 0,
+              title: ''
+            },
+            xAxis: {
+              labels: {
+                style: {
+                  fontSize: 13
+                },
+                y: 23
+              },
+              plotLines: [{
+                color: '#ec9e92',
+                value: 473463,
+                width: 0,
+                label: {
+                  align: 'right',
+                  text: '',
+                  x: 5,
+                  y: 80
+                }
+              },
+              {
+                color: '#ec9e92',
+                value: 436200,
+                width: 0,
+                label: {
+                  align: 'right',
+                  text: '',
+                  x: 5,
+                  y: 85
+                }
+              },
+              {
+                color: '#ec9e92',
+                value: 571287,
+                width: 0,
+                label: {
+                  align: 'right',
+                  text: '',
+                  x: 5,
+                  y: 117
+                }
+              }],
+              title: {
+                style: {
+                  fontSize: 14
+                },
+                text: ''
+              }
+            },
+            tooltip: {
+              enabled: false,
+            },
+            legend: {
+              enabled: false,
+            },
+            series: [{
+              data: this.seriesData,
+            }],
+            plotOptions: {
+              area: {
+                enableMouseTracking: false,
+                color: '#23947a',
+                fillColor: 'rgba(35, 148, 122, .35)',
+                zoneAxis: 'x',
+                zones: [{
+                  fillColor: '#fafafa',
+                  value: lowerPrice,
+                },{
+                  value: upperPrice,
+                },{
+                  fillColor: '#fafafa',
+                }]
+              }
             }
           }
-        }
-      }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => this.loading = false);
     },
     methods: {
       showPurchasePrice(e) {        
@@ -136,12 +168,10 @@
         e.target.nextElementSibling.classList.remove('inactive');
       },
       showAsIs(e) {
-        seriesData.unshift({x: 436200, y: 0 });
-        this.chartOptions.series[0].data = seriesData;
+        this.seriesData.unshift({x: this.assessedAmt, y: 0 });
+        this.chartOptions.series[0].data = this.seriesData;
         this.chartOptions.xAxis.plotLines[1].width = 2;
         this.chartOptions.xAxis.plotLines[1].label.text = 'Assessed value';
-        console.log(e.target.nextElementSibling);
-        
         e.target.nextElementSibling.nextElementSibling.classList.remove('inactive');
       },
       showAfterRenovation() {

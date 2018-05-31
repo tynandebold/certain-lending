@@ -1,0 +1,84 @@
+[
+  {
+    "property/details": {
+      "api_code_description": "ok",
+      "api_code": 0,
+      "result": {
+        "property": {
+          "roof_type": "Hip",
+          "no_of_buildings": 0,
+          "construction_type": "Concrete",
+          "roof_cover": "Asphalt",
+          "total_bath_count": 2.5,
+          "attic": null,
+          "total_number_of_rooms": 9,
+          "zoning": null,
+          "number_of_bedrooms": 3,
+          "garage_type_parking": null,
+          "heating_fuel_type": "oil",
+          "basement": "full_basement",
+          "subdivision": null,
+          "air_conditioning": null,
+          "property_type": "Single Family Residential",
+          "fireplace": true,
+          "pool": null,
+          "no_of_stories": 2,
+          "water": null,
+          "style": "bungalow",
+          "building_quality_score": null,
+          "year_built": 1927,
+          "exterior_walls": "wood_siding",
+          "garage_parking_of_cars": 0,
+          "heating": "hot_water",
+          "sewer": null,
+          "site_area_acres": 2.4000001,
+          "number_of_units": 1,
+          "building_area_sq_ft": 2562,
+          "building_condition_score": 3,
+          "full_bath_count": 2,
+          "partial_bath_count": 1
+        },
+        "assessment": {
+          "assessment_year": 2018,
+          "apn": "BOLT M:005D B:0000 L:0008",
+          "tax_amount": 9012.0,
+          "total_assessed_value": 436200.0,
+          "tax_year": 2018
+        }
+      }
+    },
+    "address_info": {
+      "status": {
+        "requested_item": {
+          "zipcode": "01740",
+          "address": "188 sugar road"
+        },
+        "errors": [],
+        "changes": [
+          "State added or changed",
+          "Locality (city, municipality) added or changed"
+        ],
+        "details": [
+          "Address fully verified"
+        ],
+        "match": true
+      },
+      "city": "Bolton",
+      "county_fips": "25027",
+      "geo_precision": "rooftop",
+      "block_id": "250277151001032",
+      "zipcode": "01740",
+      "blockgroup_id": "250277151001",
+      "address_full": "188 Sugar Rd Bolton MA 01740",
+      "state": "MA",
+      "msa": "49340",
+      "metrodiv": null,
+      "unit": null,
+      "address": "188 Sugar Rd",
+      "lat": 42.44404,
+      "lng": -71.5922,
+      "slug": "188-Sugar-Rd-Bolton-MA-01740",
+      "zipcode_plus4": "1035"
+    }
+  }
+]

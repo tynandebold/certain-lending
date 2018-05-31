@@ -1,0 +1,56 @@
+[
+  {
+    "address_info": {
+      "status": {
+        "requested_item": {
+          "zipcode": "01740",
+          "address": "188 sugar road"
+        },
+        "errors": [],
+        "changes": [
+          "State added or changed",
+          "Locality (city, municipality) added or changed"
+        ],
+        "details": [
+          "Address fully verified"
+        ],
+        "match": true
+      },
+      "city": "Bolton",
+      "county_fips": "25027",
+      "geo_precision": "rooftop",
+      "block_id": "250277151001032",
+      "zipcode": "01740",
+      "blockgroup_id": "250277151001",
+      "address_full": "188 Sugar Rd Bolton MA 01740",
+      "state": "MA",
+      "msa": "49340",
+      "metrodiv": null,
+      "unit": null,
+      "address": "188 Sugar Rd",
+      "lat": 42.44404,
+      "lng": -71.5922,
+      "slug": "188-Sugar-Rd-Bolton-MA-01740",
+      "zipcode_plus4": "1035"
+    },
+    "property/value_by_quality": {
+      "api_code_description": "ok",
+      "api_code": 0,
+      "result": {
+        "value": {
+          "price_upr": 578553,
+          "price_lwr": 505903,
+          "price_mean": 542228,
+          "fsd": 0.0669921,
+          "price_mean_by_quality": {
+            "poor": 473463,
+            "subpar": 516800,
+            "good": 556757,
+            "fair": 542228,
+            "excellent": 571287
+          }
+        }
+      }
+    }
+  }
+]
