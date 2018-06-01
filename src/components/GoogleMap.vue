@@ -4,7 +4,8 @@
     height="375"
     frameborder="0" style="border:0"
     :src="url"
-    allowfullscreen>
+    allowfullscreen
+    class="locator-map">
   </iframe>
 </template>
 
@@ -20,3 +21,11 @@
     }
   }
 </script>
+
+<style>
+  @media (max-width: 600px) {
+    .locator-map {
+      margin-top: 48px;
+    }
+  }
+</style>

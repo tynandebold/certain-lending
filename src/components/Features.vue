@@ -1,5 +1,5 @@
 <template>
-  <v-layout column flex xs12 md6>
+  <v-layout column flex xs12 md6 mr-2 class="features-wrapper">
     <v-flex xs12 md6 d-flex style="flex-wrap:wrap;">
       <div class="title">Key details</div>
       <PropertyFeature
@@ -36,10 +36,7 @@
     </v-flex>
     <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
-      <v-flex d-flex align-center justify-start style="width: 100%;">
-        <v-icon medium style="width: 35px;">fas fa-home</v-icon>
-        <div class="subheading ml-2" style="width: 100%;">Construction</div>
-      </v-flex>
+      <div class="title">Construction</div>
       <PropertyFeature
         label="Type"
         :data="data.result.property.construction_type">
@@ -63,10 +60,7 @@
     </v-flex>
     <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
-      <v-flex d-flex align-center justify-start style="width: 100%;">
-        <v-icon medium style="width: 35px;">fas fa-bath</v-icon>
-        <div class="subheading ml-2" style="width: 100%;">Interior</div>
-      </v-flex>
+      <div class="title">Interior</div>
       <PropertyFeature
         label="Bedrooms"
         :data="data.result.property.number_of_bedrooms">
@@ -94,10 +88,7 @@
     </v-flex>
     <v-flex class="feature-types-wrapper" xs12 md6 d-flex style="flex-wrap:wrap;">
       <v-divider class="my-4 mr-5"></v-divider>
-      <v-flex d-flex align-center justify-start style="width: 100%;">
-        <v-icon medium style="width: 35px;">fas fa-wrench</v-icon>
-        <div class="subheading ml-2" style="width: 100%;">Other</div>
-      </v-flex>
+      <div class="title">Other</div>
       <PropertyFeature
         label="Heating fuel"
         :data="data.result.property.heating_fuel_type">
@@ -142,6 +133,7 @@
 
 <style>
   .main-content .title {
+    font-weight: 400;
     width: 100%;
   }
 
@@ -152,5 +144,15 @@
   .feature-types-wrapper::after {
     content: '';
     width: 33%;
+  }
+
+  @media (max-width: 600px) {
+    .divider {
+      margin-right: 0 !important;
+    }
+
+    .features-wrapper {
+      margin-right: 0 !important;
+    }
   }
 </style>

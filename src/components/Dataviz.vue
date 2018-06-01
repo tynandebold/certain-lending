@@ -1,8 +1,8 @@
 <template>
-  <v-layout d-flex column>
+  <v-layout column flex xs12 class="mt-3">
     <div class="title mb-2">Standard deviation around estimated property value</div>
-    <p class="viz-subtext mb-1">The poor condition of this house would put your <span @click="showPurchasePrice">purchasing price</span> well below the mean. The <span class="inactive" @click="showAsIs">as-is value</span>, the price the property was assessed at in 2018, is actually lower than that. Assuming you take on a renovation budget of about <strong>$45,000</strong>, you could be looking at quite a nice <span class="inactive" @click="showAfterRenovation">after-renovation value</span>.</p>
-    <p class="caption"><i>Hint: select the highlighted words.</i></p>
+    <p class="viz-subtext mb-1">The poor condition of this house puts the <span @click="showPurchasePrice">purchasing price*</span> well below the mean value. The <span class="inactive" @click="showAsIs">as-is value</span>, the price the property was assessed at in 2018, is actually lower than that. Assuming you take on a renovation budget of about <strong>$45,000</strong> and sold the house at this <span class="inactive" @click="showAfterRenovation">after-renovation value</span>, you'd make about a $50,000 profit.</p>
+    <p class="body-1"><strong>*Select the highlighted words.</strong></p>
     <highcharts :options="chartOptions" v-if="!loading"></highcharts>
   </v-layout>
 </template>
@@ -91,9 +91,10 @@
                 y: 23
               },
               plotLines: [{
-                color: '#ec9e92',
-                value: 473463,
+                color: 'rgba(255, 182, 92, .8)',
+                value: this.valueData.result.value.price_mean_by_quality.poor,
                 width: 0,
+                zIndex: 10,
                 label: {
                   align: 'right',
                   text: '',
@@ -102,20 +103,22 @@
                 }
               },
               {
-                color: '#ec9e92',
-                value: 436200,
+                color: 'rgba(255, 182, 92, .8)',
+                value: this.assessedAmt,
                 width: 0,
+                zIndex: 10,
                 label: {
                   align: 'right',
                   text: '',
                   x: 5,
-                  y: 85
+                  y: 57
                 }
               },
               {
-                color: '#ec9e92',
-                value: 571287,
+                color: 'rgba(255, 182, 92, .8)',
+                value: this.valueData.result.value.price_mean_by_quality.excellent,
                 width: 0,
+                zIndex: 10,
                 label: {
                   align: 'right',
                   text: '',
@@ -127,7 +130,7 @@
                 style: {
                   fontSize: 14
                 },
-                text: ''
+                text: 'Price ($)'
               }
             },
             tooltip: {
@@ -142,8 +145,8 @@
             plotOptions: {
               area: {
                 enableMouseTracking: false,
-                color: '#23947a',
-                fillColor: 'rgba(35, 148, 122, .35)',
+                color: '#75c5ff',
+                fillColor: 'rgba(172, 219, 253, 0.5)',
                 zoneAxis: 'x',
                 zones: [{
                   fillColor: '#fafafa',
@@ -167,17 +170,20 @@
         this.chartOptions.xAxis.plotLines[0].width = 2;
         this.chartOptions.xAxis.plotLines[0].label.text = 'Purchase price';
         e.target.nextElementSibling.classList.remove('inactive');
+        e.target.classList.add('clicked');
       },
       showAsIs(e) {
         this.seriesData.unshift({x: this.assessedAmt, y: 0 });
         this.chartOptions.series[0].data = this.seriesData;
         this.chartOptions.xAxis.plotLines[1].width = 2;
-        this.chartOptions.xAxis.plotLines[1].label.text = 'Assessed value';
+        this.chartOptions.xAxis.plotLines[1].label.text = 'As-is value';
         e.target.nextElementSibling.nextElementSibling.classList.remove('inactive');
+        e.target.classList.add('clicked');
       },
-      showAfterRenovation() {
+      showAfterRenovation(e) {
         this.chartOptions.xAxis.plotLines[2].width = 2;
         this.chartOptions.xAxis.plotLines[2].label.text = 'After-renovation value';
+        e.target.classList.add('clicked');
       }
     }
   }
@@ -185,8 +191,8 @@
 
 <style>
   .viz-subtext span {
-    background-color: rgba(236, 158, 146, .5);
-    border-radius: 2px;;
+    background-color: rgba(255, 182, 92, .5);
+    border-radius: 2px;
     display: inline;
     padding: 2px 4px;
     transition: background-color ease 0.2s;
@@ -199,6 +205,10 @@
   .viz-subtext span.inactive {
     background-color: transparent;
     padding: 0;
+    pointer-events: none;
+  }
+
+  .viz-subtext span.clicked {
     pointer-events: none;
   }
 </style>

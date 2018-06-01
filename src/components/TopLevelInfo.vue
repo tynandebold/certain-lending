@@ -14,7 +14,7 @@
           <strong>{{numberWithCommas(propertyData.result.property.building_area_sq_ft)}}</strong> square feet
         </div>
       </v-layout>
-      <v-layout d-flex column align-end>
+      <v-layout d-flex column align-end class="secondary-info">
         <div class="headline">
           {{propertyData.result.property.property_type}}
         </div>
@@ -43,7 +43,17 @@
 </script>
 
 <style media="screen">
+  .main-info {
+    box-shadow: 0 2px 2px -1px #E0E0E0;
+  }
+
   .main-info .headline {
-    font-family: serif;
+    font-weight: 400;
+  }
+
+  @media (max-width: 600px) {
+    .secondary-info {
+      display: none !important;
+    }
   }
 </style>

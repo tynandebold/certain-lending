@@ -22,8 +22,8 @@
             :addressData="addressData"
             :propertyData="propertyData">
           </TopLevelInfo>
-          <v-container class="main-content">
-            <v-layout row wrap align-start>
+          <v-container class="main-content mt-5">
+            <v-layout row align-start justify-space-between>
               <Features :propertyData="propertyData"></Features>
               <v-flex xs12 md6>
                 <GoogleMap :address="addressData.slug" class="mb-5"></GoogleMap>
@@ -105,3 +105,11 @@
     }
   }
 </script>
+
+<style>
+  @media (max-width: 600px) {
+    .main-content div:first-of-type {
+      flex-wrap: wrap;
+    }
+  }
+</style>

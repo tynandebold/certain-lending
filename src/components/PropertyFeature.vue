@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap class="trait mt-4">
     <v-icon v-if="icon" large style="width: 35px;">{{icon}}</v-icon>
-    <v-layout wrap ml-2>
+    <v-layout wrap ml-2 class="trait--wrapper">
       <div class="trait--label grey--text darken-1">{{label}}</div>
       <div class="trait--data">{{propData}} {{suffix}}</div>
     </v-layout>
@@ -48,5 +48,13 @@
 
   .trait--data::first-letter {
     text-transform: capitalize;
+  }
+</style>
+
+<style>
+  @media (max-width: 600px) {
+    .trait--wrapper {
+      margin: 5px 0 0 0 !important;
+    }
   }
 </style>
