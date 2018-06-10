@@ -69,7 +69,7 @@
     methods: {
       fetchData() {
         axios({
-          baseURL: '../data/propertyDetails.json',
+          baseURL: './data/propertyDetails.json',
           method: 'get'
         })
           .then(response => {
