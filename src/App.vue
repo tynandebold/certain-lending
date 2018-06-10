@@ -64,23 +64,13 @@
       }
     },
     mounted() {
-      this.fetchData()  
+      this.fetchData()
     },
     methods: {
       fetchData() {
         axios({
-          auth: {
-            username: 'EZWE2U4RSITP71QHNYIL',
-            password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
-          },
-          baseURL: 'https://cors-anywhere.herokuapp.com/https://api.housecanary.com/v2',
-          // baseURL: 'http://localhost:8080/data/propertyDetails.json',
-          method: 'get',
-          params: {
-            address: '188 sugar road',
-            zipcode: '01740'
-          },
-          url: '/property/details?'
+          baseURL: '../data/propertyDetails.json',
+          method: 'get'
         })
           .then(response => {
             this.propertyData = response.data['0']["property/details"];

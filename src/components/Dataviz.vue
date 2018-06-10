@@ -26,18 +26,8 @@
     },
     created() {
       axios({
-        auth: {
-          username: 'EZWE2U4RSITP71QHNYIL',
-          password: 'uX11P1aWlfrAFt7RTconuabke5VQedJL'
-        },
-        baseURL: 'https://cors-anywhere.herokuapp.com/https://api.housecanary.com/v2',
-        // baseURL: 'http://localhost:8080/data/propertyValue.json',
-        method: 'get',
-        params: {
-          address: '188 sugar road',
-          zipcode: '01740'
-        },
-        url: '/property/value_by_quality?'
+        baseURL: '../../data/propertyValue.json',
+        method: 'get'
       })
         .then(response => {
           this.valueData = response.data['0']["property/value_by_quality"];
@@ -46,9 +36,9 @@
           const upperPrice = this.valueData.result.value.price_upr;
           const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2)) * 100000;
           const getStdDeviation = (lowerPrice, upperPrice) => (upperPrice - lowerPrice) / 4;
-          
+
           const generatePoints = (lowerPrice, upperPrice) => {
-            let stdDev = getStdDeviation(lowerPrice, upperPrice); 
+            let stdDev = getStdDeviation(lowerPrice, upperPrice);
             let min = lowerPrice - 2 * stdDev;
             let max = upperPrice + 2 * stdDev;
             let unit = (max - min) / 100;
@@ -58,7 +48,7 @@
           const mean = (upperPrice + lowerPrice) / 2;
           const stdDev = getStdDeviation(lowerPrice, upperPrice);
           const points = generatePoints(lowerPrice, upperPrice);
-          this.seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));          
+          this.seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));
 
           this.chartOptions = {
             chart: {
@@ -78,7 +68,7 @@
             },
             yAxis: {
               labels: {
-                enabled: false,  	
+                enabled: false,
               },
               gridLineWidth: 0,
               title: ''
@@ -166,7 +156,7 @@
         .finally(() => this.loading = false);
     },
     methods: {
-      showPurchasePrice(e) {        
+      showPurchasePrice(e) {
         this.chartOptions.xAxis.plotLines[0].width = 2;
         this.chartOptions.xAxis.plotLines[0].label.text = 'Purchase price';
         e.target.nextElementSibling.classList.remove('inactive');
