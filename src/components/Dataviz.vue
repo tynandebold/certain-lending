@@ -26,7 +26,7 @@
     },
     created() {
       axios({
-        baseURL: './../data/propertyValue.json',
+        baseURL: './../../data/propertyValue.json',
         method: 'get'
       })
         .then(response => {
